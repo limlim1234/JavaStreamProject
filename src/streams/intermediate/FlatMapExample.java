@@ -33,7 +33,7 @@ public class FlatMapExample {
 			/*
 		 * }).filter(n -> n>2000).reduce(new DoubleBinaryOperator() {
 		 * 
-			 * @Override public double applyAsDouble(double left, double right) { return
+			 * @Override public double apply(double left, double right) { return
 			 * left > right ? left:right; }
 			 */
 		}).reduce(new DoubleBinaryOperator() {
@@ -60,8 +60,8 @@ System.out.println("result: " + result);
 		//		return stream;	
 				return Stream.of(t.getName());
 			}
-		}).findFirst().ifPresent(System.out::println); //결과값이 있는지 없는지
-		//forEach(System.out::println);
+		}).//findFirst().ifPresent(System.out::println); //결과값이 있는지 없는지
+		forEach(System.out::println);
 		
 	Optional<LocalDate> result2 = Employee.employees().stream().flatMap(new Function<Employee, Stream<LocalDate>>() {
 
