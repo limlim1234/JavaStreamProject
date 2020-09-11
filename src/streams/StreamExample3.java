@@ -33,7 +33,6 @@ public class StreamExample3 {
 			public void accept(Student t) {
 				sum += t.score;
 				cnt++;
-
 			}
 
 		});

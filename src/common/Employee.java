@@ -72,6 +72,5 @@ public class Employee {
 				+ email + ", hireDate=" + hireDate + ", jobid=" + jobid + ", salary=" + salary + "]";
 	}
 	
-     
       
 }

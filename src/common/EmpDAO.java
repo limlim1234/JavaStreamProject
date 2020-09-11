@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpDAO {
-   Connection conn = ConnectionDB.getDB();
-   List<Employee> list = new ArrayList<>();
-   public List<Employee> getEmpList() {
+ 
+   public static List<Employee> getEmpList() {
+	   Connection conn = ConnectionDB.getDB();
+	   List<Employee> list = new ArrayList<>();
       String sql = "select employee_id, first_name, last_name, email, hire_date, job_id, salary" 
             +"\n"+ "from employees";
       
@@ -30,9 +31,9 @@ public class EmpDAO {
             
             list.add(e);
          }
-         } catch (SQLException e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
+         } catch (SQLException e) {
+
+         e.printStackTrace();
       }
          
          
@@ -40,3 +41,5 @@ public class EmpDAO {
       }
       
    }
+   
+   //List<Employee> getEmpList();

@@ -1,92 +1,39 @@
 package common;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import common.EmpDAO;
-import common.Employee;
-
-
 public class StreamMapExample {
-   public static void main(String[] args) {
-      EmpDAO emp = new EmpDAO();
-      List<Employee> employees = emp.getEmpList();
-      
-      //salery가 10000 이상인 사원들 출력.
-      
-      employees.stream().filter(new Predicate<Employee>() {
-
-         @Override
-         public boolean test(Employee t) {
-            return t.getSalary() > 10000;
-         }
-      }).forEach(System.out::println);
-      
-      
-      System.out.println("----------------------------");
-      
-      List<Employee> employees1 = emp.getEmpList();
-      
-      employees1.stream().filter(new Predicate<Employee>() {
-
-		@Override
-		public boolean test(Employee t) {
-			LocalDate a = LocalDate.of(1995, 01, 01);
-			return t.getHireDate().isAfter(a);
-		}
-    	  
-      }).forEach(System.out::println);
-      
-      System.out.println("----------------------------");
-      
-      List<Employee> employees2 = emp.getEmpList();
-      employees2.stream().filter(new Predicate<Employee>() {
-
-		@Override
-		public boolean test(Employee t) {
-			 LocalDate a = LocalDate.of(1995, 01, 01);
-	    	  return t.getHireDate().isBefore(a);
-			
-		}
-    	
-      }).forEach(System.out::println);
-      
-      System.out.println("----------------------------");
-      //reduce로 샐러리 최댓값 최솟값 구하기
-      List<Employee> employee = null;
-      try {
-          employees = EmpDAO.getEmpList();
-          System.out.println("---------------------");
-          System.out.println("> salary가 가장큰사람의 salary : ");      
-          OptionalInt sal = employees.stream()
-                .flatMapToInt(new Function<Employee, IntStream>(){
-                   @Override
-                   public IntStream apply(Employee t) {
-                      return IntStream.of(t.getSalary()); // Employee의 salary를 받아온 상태임
-                   }
-                }).reduce(new IntBinaryOperator() {
-
-                   @Override
-                   public int applyAsInt(int left, int right) {
-                      
-                      return left > right ? left : right; // 이미 샐러리로 선택되어있으니까 .getSalary 또 쓰지마
-                   }
-                });
-          System.out.println(sal);
-       } catch (SQLException e) {
-          e.printStackTrace();
-       }
-    }
-
-
-
-   }
-   
+	public static void main(String[] args) {
+		List<Employee> employees = EmpDAO.getEmpList();
+		//salary가 10000이상인 사원들 출력
+		LocalDate date = LocalDate.of(2020, 5, 1);//데이트타입 -> 문자열
+/*		System.out.println(date.format(DateTimeFormatter.ISO_DATE));
+		LocalDate.parse("2020-05-05",DateTimeFormatter.ISO_DATE);//문자열 -> 데이트타입
+		employees.stream().filter(a -> a.getSalary() >= 10000)
+		.forEach(System.out::println);
+		.forEach(s -> System.out.println(s.getLastName() + " : " + s.getSalary()));
+		
+reduce
+		employees = EmpDAO.getEmpList();
+		Employee emp = employees.stream().reduce((a, b) -> a.getSalary() > b.getSalary()? a : b).get();
+	System.out.println("최고 연봉자: " + emp.getLastName() + " 연봉 " + emp.getSalary());
+		
+		map
+		employees = EmpDAO.getEmpList();
+	int salary = employees.stream().map(Employee::getSalary).reduce((a, b) -> a > b? a : b).get();
+		System.out.println("최고 연봉: " + salary); */
+		
+		LocalDate date1 = 
+		LocalDate.parse("1991-01-01",DateTimeFormatter.ISO_DATE);
+		employees = EmpDAO.getEmpList();
+		employees.stream()
+		.filter(a -> a.getHireDate().isAfter(date1)).forEach(System.out::println);
+		
+}
 }

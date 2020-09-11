@@ -10,7 +10,6 @@ import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 public class FlatMapExample {
-
 	public static void main(String[] args) {
 		Stream<Integer> stream = Stream.of(1,2,3,4,5);
 		stream.flatMap(new Function<Integer, Stream<Integer>>(){
